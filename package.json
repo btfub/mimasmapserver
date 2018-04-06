@@ -1,0 +1,23 @@
+{
+  "name": "mimasmapserver",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "dependencies": {
+    "ol-cesium": "^1.35.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/btfub/mimasmapserver.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/btfub/mimasmapserver/issues"
+  },
+  "homepage": "https://github.com/btfub/mimasmapserver#readme"
+}
