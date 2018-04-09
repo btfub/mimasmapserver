@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.html",
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,6 +19,7 @@
   "homepage": "https://github.com/btfub/mimasmapserver#readme",
   "dependencies": {
     "ol-cesium": "^1.35.0",
+    "ol-layerswitcher": "^2.0.0",
     "openlayers": "^3.20.1"
   }
 }
