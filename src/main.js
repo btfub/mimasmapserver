@@ -143,12 +143,12 @@ app.view = new ol.View({
     maxZoom: 16,
     minZoom: 0
 });
-/*app.LayerSwitcher = new ol.control.LayerSwitcher();
+app.LayerSwitcher = new ol.control.LayerSwitcher();
 app.controls = new ol.control.defaults({
     attribution: false
 }).extend([
    app.LayerSwitcher
-]);*/
+]);
 
 /**
  * @type {ol.Map}
