@@ -175,6 +175,12 @@ app.map = new ol.Map({
 app.layerSwitcher = new ol.control.LayerSwitcher({
         tipLabel: 'Légende' // Optional label for button
     });
+
+//2D3D Switcher (dimensionSwitcher) - START
+//var dimensionSwitcher = new ol.control.Control();
+	//continue here
+//2D3D Switcher (dimensionButton) - END
+    
 app.map.addControl(app.layerSwitcher);
 
 app.ol3d = new olcs.OLCesium({
