@@ -9,7 +9,7 @@ background-color: black;
 
 #dimension_button {
     background-color:black;
-    color: rgb(164, 164, 164);
+    color: #fdec00;/*#e6ce1d*/
     border: 4px solid; 
     border-radius: 4px;
     padding: 8px;
