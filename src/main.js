@@ -147,7 +147,7 @@ app.LayerSwitcher = new ol.control.LayerSwitcher();
 
 
 //2D3D Switcher (DimensionSwitcher) - START
-app.DimensionSwitcher = function (opt_options){
+/*app.DimensionSwitcher = function (opt_options){
 	var options = opt_options ||{};
 	
 	var dimension_button = document.createElement('Dimension Button');
@@ -192,7 +192,25 @@ app.DimensionSwitcher = function (opt_options){
     });
 };
 
-ol.inherits(app.DimensionSwitcher, ol.control.Control);
+ol.inherits(app.DimensionSwitcher, ol.control.Control);*/
+
+var button = document.createElement('button');
+button.innerHTML = 'N';
+
+var handleDimension = function(e) {
+    app.map.getView().setRotation(0);
+};
+
+button.addEventListener('click', handleDimension, false);
+
+var element = document.createElement('div');
+element.className = 'dimension_button ol-unselectable ol-control';
+element.appendChild(button);
+
+var DimensionSwitcher = new ol.control.Control({
+    element: element
+});
+
 //2D3D Switcher (DimensionSwitcher) - END
 
 
@@ -200,8 +218,9 @@ app.controls = new ol.control.defaults({
     attribution: false
 }).extend([
    app.LayerSwitcher,
-   app.DimensionSwitcher //2D3D
+   DimensionSwitcher//<-----------
 ]);
+
 
 /**
  * @type {ol.Map}
@@ -222,18 +241,14 @@ app.map = new ol.Map({
                 //app.gridwfs
         ],
     view: app.view,
-    controls: app.controls,
+    controls: app.controls
 });
 
 app.layerSwitcher = new ol.control.LayerSwitcher({
         tipLabel: 'Légende' // Optional label for button
     });
-
-app.dimensionSwitcher = new ol.control.DimensionSwitcher({ //2D3D
-        tipLabel: 'Blub' // Optional label for button
-    });
  
-app.map.addControl(app.layerSwitcher, app.dimensionSwitcher); //2D3D
+app.map.addControl(app.layerSwitcher, app.RotateNorthControl);//<----------
 
 app.ol3d = new olcs.OLCesium({
         map: app.map,

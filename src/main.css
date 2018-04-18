@@ -17,3 +17,9 @@ background-color: black;
     font-weight: bold;
     font-family: "Stencil Std", fantasy, sans-serif;
 }
+
+/*Attempt*/
+.rotate-north {
+  top: 80px;
+  left: .5em;
+}
