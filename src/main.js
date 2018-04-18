@@ -144,10 +144,63 @@ app.view = new ol.View({
     minZoom: 0
 });
 app.LayerSwitcher = new ol.control.LayerSwitcher();
+
+
+//2D3D Switcher (DimensionSwitcher) - START
+app.DimensionSwitcher = function (opt_options){
+	var options = opt_options ||{};
+	
+	var dimension_button = document.createElement('Dimension Button');
+	dimension_button.innerHTML='BLA';
+
+	var this_=this;
+	var handleDimension = function(){
+		var mode = window.location.href.match(/mode=([a-z0-9\-]+)\&?/i);
+		var DIST = false;
+		var isDev = mode && mode[1] === 'dev';
+		var cs = isDev ? 'CesiumUnminified/Cesium.js' : 'Cesium/Cesium.js';
+		var ol = (DIST && isDev) ? 'olcesium-debug.js' : '@loader';
+
+		if (!window.LAZY_CESIUM) {
+		document.write('<scr' + 'ipt type="text/javascript" src="../cesium/Build/' + cs + '"></scr' + 'ipt>');
+		}
+		document.write('<scr' + 'ipt type="text/javascript" src="../' + ol + '"></scr' + 'ipt>');
+
+		var s;
+		window.lazyLoadCesium = function() {
+		if (!s) {
+		  s = document.createElement("script");
+		  s.type = "text/javascript";
+		  s.src = '../cesium/Build/' + cs;
+		  console.log('loading Cesium...');
+		  document.body.appendChild(s);
+		}
+		return s;
+		};
+	};
+	
+    dimension_button.addEventListener('click', handleDimension, false);
+    dimension_button.addEventListener('touchstart', handleDimension, false);
+
+    var element = document.createElement('div');
+    element.className = 'ol-control dimension_button ol-unselectable';
+    element.appendChild(dimension_button);
+
+    ol.control.Control.call(this, {
+    	element: element,
+    	target: options.target
+    });
+};
+
+ol.inherits(app.DimensionSwitcher, ol.control.Control);
+//2D3D Switcher (DimensionSwitcher) - END
+
+
 app.controls = new ol.control.defaults({
     attribution: false
 }).extend([
-   app.LayerSwitcher
+   app.LayerSwitcher,
+   app.DimensionSwitcher //2D3D
 ]);
 
 /**
@@ -176,12 +229,11 @@ app.layerSwitcher = new ol.control.LayerSwitcher({
         tipLabel: 'Légende' // Optional label for button
     });
 
-//2D3D Switcher (dimensionSwitcher) - START
-//var dimensionSwitcher = new ol.control.Control();
-	//continue here
-//2D3D Switcher (dimensionButton) - END
-    
-app.map.addControl(app.layerSwitcher);
+app.dimensionSwitcher = new ol.control.DimensionSwitcher({ //2D3D
+        tipLabel: 'Blub' // Optional label for button
+    });
+ 
+app.map.addControl(app.layerSwitcher, app.dimensionSwitcher); //2D3D
 
 app.ol3d = new olcs.OLCesium({
         map: app.map,
