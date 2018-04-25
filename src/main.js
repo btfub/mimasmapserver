@@ -147,58 +147,34 @@ app.LayerSwitcher = new ol.control.LayerSwitcher();
 
 
 //2D3D Switcher (DimensionSwitcher) - START
-/*app.DimensionSwitcher = function (opt_options){
-	var options = opt_options ||{};
-	
-	var dimension_button = document.createElement('Dimension Button');
-	dimension_button.innerHTML='BLA';
-
-	var this_=this;
-	var handleDimension = function(){
-		var mode = window.location.href.match(/mode=([a-z0-9\-]+)\&?/i);
-		var DIST = false;
-		var isDev = mode && mode[1] === 'dev';
-		var cs = isDev ? 'CesiumUnminified/Cesium.js' : 'Cesium/Cesium.js';
-		var ol = (DIST && isDev) ? 'olcesium-debug.js' : '@loader';
-
-		if (!window.LAZY_CESIUM) {
-		document.write('<scr' + 'ipt type="text/javascript" src="../cesium/Build/' + cs + '"></scr' + 'ipt>');
-		}
-		document.write('<scr' + 'ipt type="text/javascript" src="../' + ol + '"></scr' + 'ipt>');
-
-		var s;
-		window.lazyLoadCesium = function() {
-		if (!s) {
-		  s = document.createElement("script");
-		  s.type = "text/javascript";
-		  s.src = '../cesium/Build/' + cs;
-		  console.log('loading Cesium...');
-		  document.body.appendChild(s);
-		}
-		return s;
-		};
-	};
-	
-    dimension_button.addEventListener('click', handleDimension, false);
-    dimension_button.addEventListener('touchstart', handleDimension, false);
-
-    var element = document.createElement('div');
-    element.className = 'ol-control dimension_button ol-unselectable';
-    element.appendChild(dimension_button);
-
-    ol.control.Control.call(this, {
-    	element: element,
-    	target: options.target
-    });
-};
-
-ol.inherits(app.DimensionSwitcher, ol.control.Control);*/
-
 var button = document.createElement('button');
-button.innerHTML = 'N';
+button.innerHTML = '2D';
 
-var handleDimension = function(e) {
-    app.map.getView().setRotation(0);
+var handleDimension = function() {
+      var mode = window.location.href.match(/mode=([a-z0-9\-]+)\&?/i);
+  var DIST = false;
+  var isDev = mode && mode[1] === 'dev';
+  var cs = isDev ? 'CesiumUnminified/Cesium.js' : 'Cesium/Cesium.js';
+  var ol = (DIST && isDev) ? 'olcesium-debug.js' : '@loader';
+
+  if (!window.LAZY_CESIUM) { //continue here
+//MY document.write('<scr' + 'ipt type="text/javascript" src="node_modules/ol-cesium/dist/' + cs + '"></scr' + 'ipt>');
+  document.write('<scr' + 'ipt type="text/javascript" src="../cesium/Build/' + cs + '"></scr' + 'ipt>');
+  }
+//MY document.write('<scr' + 'ipt type="text/javascript" src="node_modules/dist/' + ol + '"></scr' + 'ipt>');
+  document.write('<scr' + 'ipt type="text/javascript" src="../' + ol + '"></scr' + 'ipt>');  
+
+  var s;
+  window.lazyLoadCesium = function() {
+    if (!s) {
+      s = document.createElement("script");
+      s.type = "text/javascript";
+      s.src = 'node_modules/ol-cesium/dist/' + cs;
+      console.log('loading Cesium...');
+      document.body.appendChild(s);
+    }
+    return s;
+  };
 };
 
 button.addEventListener('click', handleDimension, false);
@@ -207,10 +183,9 @@ var element = document.createElement('div');
 element.className = 'dimension_button ol-unselectable ol-control';
 element.appendChild(button);
 
-var DimensionSwitcher = new ol.control.Control({
+app.DimensionSwitcher = new ol.control.Control({
     element: element
 });
-
 //2D3D Switcher (DimensionSwitcher) - END
 
 
@@ -218,7 +193,7 @@ app.controls = new ol.control.defaults({
     attribution: false
 }).extend([
    app.LayerSwitcher,
-   DimensionSwitcher//<-----------
+   app.DimensionSwitcher//DimensionSwitcher
 ]);
 
 
@@ -248,7 +223,7 @@ app.layerSwitcher = new ol.control.LayerSwitcher({
         tipLabel: 'Légende' // Optional label for button
     });
  
-app.map.addControl(app.layerSwitcher, app.RotateNorthControl);//<----------
+app.map.addControl(app.layerSwitcher, app.DimensionSwitcher);//DimensionSwitcher
 
 app.ol3d = new olcs.OLCesium({
         map: app.map,
