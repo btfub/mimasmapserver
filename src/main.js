@@ -147,42 +147,62 @@ app.LayerSwitcher = new ol.control.LayerSwitcher();
 
 
 //2D3D Switcher (DimensionSwitcher) - START
-var button = document.createElement('button');
-button.innerHTML = '2D';
+var button = document.createElement('button'); 
+//creates new element of type 'button'
+button.innerHTML = '2D'; 
+//place clickable HTML content into button
 
+//definition of switcher function
 var handleDimension = function() {
-      var mode = window.location.href.match(/mode=([a-z0-9\-]+)\&?/i);
+  var mode = window.location.href.match(/mode=([a-z0-9\-]+)\&?/i); 
+  //searches for matches against the regular expressions within website's URI --> checks current mode (2D/3D)
   var DIST = false;
+  //DIST means false --> ??
   var isDev = mode && mode[1] === 'dev';
+  //is true if the matched URI and the first position (?) of the matched URI are 'dev' in both type and value
   var cs = isDev ? 'CesiumUnminified/Cesium.js' : 'Cesium/Cesium.js';
-  var ol = (DIST && isDev) ? 'olcesium-debug.js' : '@loader';
+  // if 'dev' in URI use 'CesiumUnminified/Cesium.js' else use 'Cesium/Cesium.js'
+  var ol = (DIST && isDev) ? 'olcesium-debug.js' : 'olcesium-debug.js';//'@loader';
+  // if DIST and isDev are both true use 'olcesium-debug.js' else use '@loader' --> DIST is always false ????
 
-  if (!window.LAZY_CESIUM) { //continue here
-//MY document.write('<scr' + 'ipt type="text/javascript" src="node_modules/ol-cesium/dist/' + cs + '"></scr' + 'ipt>');
-  document.write('<scr' + 'ipt type="text/javascript" src="../cesium/Build/' + cs + '"></scr' + 'ipt>');
+  //if LAZY_CESIUM is not true write a script-document based on cs
+  if (!window.LAZY_CESIUM) { 
+	document.write('<scr' + 'ipt type="text/javascript" src="node_modules/ol-cesium/dist/' + cs + '"></scr' + 'ipt>');
+  //document.write('<scr' + 'ipt type="text/javascript" src="../cesium/Build/' + cs + '"></scr' + 'ipt>');
   }
-//MY document.write('<scr' + 'ipt type="text/javascript" src="node_modules/dist/' + ol + '"></scr' + 'ipt>');
-  document.write('<scr' + 'ipt type="text/javascript" src="../' + ol + '"></scr' + 'ipt>');  
 
-  var s;
+  //write a script-document basd on ol
+  document.write('<scr' + 'ipt type="text/javascript" src="node_modules/ol-cesium/dist/' + ol + '"></scr' + 'ipt>');
+  //document.write('<scr' + 'ipt type="text/javascript" src="../' + ol + '"></scr' + 'ipt>');  
+
+  var s; //auxiliary variable
+  //definition of the lazyLoadCesium function --> if the map is not 2D, make it 2D
   window.lazyLoadCesium = function() {
-    if (!s) {
-      s = document.createElement("script");
+    if (!s) {//if s is false
+      s = document.createElement("script");      
       s.type = "text/javascript";
       s.src = 'node_modules/ol-cesium/dist/' + cs;
+      //creates element of type 'script', for javascript, from the given directory
       console.log('loading Cesium...');
+      //displays 'loading Cesium in the console'
       document.body.appendChild(s);
+      //element of type 'script' is inserted into document
     }
-    return s;
+    return s; //else return s --> if the map is 2D, keep it 2D
   };
-};
+//app.ol3d.setEnabled(!app.ol3d.getEnabled()); //adopted from index.html (off-map switcher)
+};//ending of switcher function definition
 
 button.addEventListener('click', handleDimension, false);
+//applies handleDimension function upon click
 
 var element = document.createElement('div');
+//creates new element of type 'div' --> button content
 element.className = 'dimension_button ol-unselectable ol-control';
-element.appendChild(button);
+//assign 'div' a styling class 
+element.appendChild(button); //element of type 'button' is inserted into the element of type 'div'
 
+//make button a new control named DimensionSwitcher
 app.DimensionSwitcher = new ol.control.Control({
     element: element
 });
