@@ -149,7 +149,7 @@ app.LayerSwitcher = new ol.control.LayerSwitcher();
 //2D3D Switcher (DimensionSwitcher) - START
 var button = document.createElement('button'); 
 //creates new element of type 'button'
-button.innerHTML = '2D'; 
+button.innerHTML = '<p class="dimension_button">2D</p>';
 //place clickable HTML content into button
 
 //definition of switcher function
@@ -190,7 +190,6 @@ var handleDimension = function() {
     }
     return s; //else return s --> if the map is 2D, keep it 2D
   };
-//app.ol3d.setEnabled(!app.ol3d.getEnabled()); //adopted from index.html (off-map switcher)
 };//ending of switcher function definition
 
 button.addEventListener('click', handleDimension, false);

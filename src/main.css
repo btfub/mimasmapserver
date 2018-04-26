@@ -2,24 +2,30 @@
 
 */
 
-
 #map > div > div.ol-overlaycontainer-stopevent.olcs-hideoverlay > div:nth-child(4) > button {
 background-color: black;
 }
 
-#dimension_button {
-    background-color:black;
-    color: #fdec00;/*#e6ce1d*/
-    border: 4px solid; 
-    border-radius: 4px;
-    padding: 8px;
+
+.dimension_button {
+    top: 8em;
+    right: 1em;
+    width: 2em;
+    height: 2em;
+    background-color: black;
+    /*border: 2px solid black;
+    border-radius: 4px;*/
+    color:white;
+    line-height:2em;
+    text-align: center;
     font-size: 1em;
     font-weight: bold;
-    font-family: "Stencil Std", fantasy, sans-serif;
+    font-family: 'Impact', fantasy, sans-serif;
 }
 
-/*Attempt*/
-.rotate-north {
-  top: 80px;
-  left: .5em;
+.dimension_button:hover {
+    background: black;/*#e6ce1d;*/
+    /*border: 2px solid #e6ce1d;*/
+    color:#fdec00;
 }
+
