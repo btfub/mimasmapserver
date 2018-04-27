@@ -1,5 +1,7 @@
-import Control from 'ol/control/control';
-import Observable from 'ol/observable';
+goog.provide('ol.control.DimensionSwitcher');
+goog.require('ol.control');
+//import Control from 'ol/control/control';
+//import Observable from 'ol/observable';
 
 /**
  * OpenLayers Dimension Switcher Control.
@@ -8,9 +10,7 @@ import Observable from 'ol/observable';
  * @param {Object} opt_options Control options, extends olx.control.ControlOptions adding:  
  * **`tipLabel`** `String` - the button tooltip.
  */
-export default class DimensionSwitcher extends Control {
-
-    constructor(opt_options) {
+ol.control.LayerSwitcher = function(opt_options) {
 
         var options = opt_options || {};
 
@@ -58,10 +58,6 @@ export default class DimensionSwitcher extends Control {
             }
         };
 
-    }
+};
 
-    // Expose DimensionSwitcher as ol.control.DimensionSwitcher if using a full build of
-// OpenLayers
-if (window.ol && window.ol.control) {
-    window.ol.control.DimensionSwitcher = DimensionSwitcher;
-}
+ol.inherits(ol.control.DimensionSwitcher, ol.control.Control);
