@@ -1,9 +1,5 @@
 goog.provide('app');
-
-//goog.require('ol.Map');
-//goog.require('ol.View');
-//goog.require('ol.layer.Tile');
-//goog.require('ol.source.TileWMS');
+goog.require('ol.control.DimensionSwitcher');
 
 app.base = new ol.layer.Tile({
         preload: 5,
@@ -145,14 +141,13 @@ app.view = new ol.View({
 });
 
 app.LayerSwitcher = new ol.control.LayerSwitcher();
-app.DimensionSwitcher = new ol.control.DimensionSwitcher();//DimensionSwitcher
 
 app.controls = new ol.control.defaults({
     attribution: false
 }).extend([
-   ol.control.FullScreen, //added by me
-   app.LayerSwitcher,
-   app.DimensionSwitcher//DimensionSwitcher
+   new ol.control.DimensionSwitcher(), //added by me
+   app.LayerSwitcher
+   //app.DimensionSwitcher
 ]);
 
 
@@ -178,12 +173,6 @@ app.map = new ol.Map({
     controls: app.controls
 });
 
-/*app.layerSwitcher = new ol.control.LayerSwitcher({
-        tipLabel: 'Légende' // Optional label for button
-    });*/
- 
-app.map.addControl(app.layerSwitcher, app.DimensionSwitcher);//DimensionSwitcher
-
 app.ol3d = new olcs.OLCesium({
         map: app.map,
         sceneOptions: { show: true }
@@ -191,3 +180,7 @@ app.ol3d = new olcs.OLCesium({
 
 app.ol3d.scene_.skyAtmosphere.show=false;
 app.ol3d.setEnabled(true);
+
+//app.map.addControl(
+//	new ol.control.DimensionSwitcher()
+//);
