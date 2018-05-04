@@ -26,9 +26,9 @@ ol.control.DimensionSwitcher = function(opt_options) {
    * @type {string}
    */
   this.cssClassName_ = options.className !== undefined ? options.className :
-      'ol-full-screen';
-
-  var label = options.label !== undefined ? options.label : '\u2922';
+      'dimension_button';                                                       //change class name from 'ol-full-screen' to 'dimension_button'                                                                
+                                                                                //position changed, but format is not acurate
+  var label = options.label !== undefined ? options.label : '2D';         //'\u2922' signifies the diagonal double arrow --> change to "2D"
 
   /**
    * @private
@@ -37,7 +37,7 @@ ol.control.DimensionSwitcher = function(opt_options) {
   this.labelNode_ = typeof label === 'string' ?
       document.createTextNode(label) : label;
 
-  var labelActive = options.labelActive !== undefined ? options.labelActive : '\u00d7';
+  var labelActive = options.labelActive !== undefined ? options.labelActive : '3D'; //'\u00d7' signifies the cross --> change to "3D"
 
   /**
    * @private
@@ -46,9 +46,9 @@ ol.control.DimensionSwitcher = function(opt_options) {
   this.labelActiveNode_ = typeof labelActive === 'string' ?
       document.createTextNode(labelActive) : labelActive;
 
-  var tipLabel = options.tipLabel ? options.tipLabel : 'Toggle full-screen';
+  var tipLabel = options.tipLabel ? options.tipLabel : 'Toggle Dimension';        //'Toggle full-screen' is hover label --> change to "Toggle Dimension"
   var button = document.createElement('button');
-  button.className = this.cssClassName_ + '-' + ol.control.DimensionSwitcher.isFullScreen();
+  button.className = this.cssClassName_ + '-' + ol.control.DimensionSwitcher.is2D(); //change is "isFullScreen" to "is2D"
   button.setAttribute('type', 'button');
   button.title = tipLabel;
   button.appendChild(this.labelNode_);
@@ -58,7 +58,7 @@ ol.control.DimensionSwitcher = function(opt_options) {
 
   var cssClasses = this.cssClassName_ + ' ' + ol.css.CLASS_UNSELECTABLE +
       ' ' + ol.css.CLASS_CONTROL + ' ' +
-      (!ol.control.DimensionSwitcher.isFullScreenSupported() ? ol.css.CLASS_UNSUPPORTED : '');
+      (!ol.control.DimensionSwitcher.isFullScreenSupported() ? ol.css.CLASS_UNSUPPORTED : ''); //not sure if "isFullScreenSupported" needs to be changed
   var element = document.createElement('div');
   element.className = cssClasses;
   element.appendChild(button);
@@ -90,37 +90,37 @@ ol.inherits(ol.control.DimensionSwitcher, ol.control.Control);
  */
 ol.control.DimensionSwitcher.prototype.handleClick_ = function(event) {
   event.preventDefault();
-  this.handleFullScreen_();
+  this.handleDimension_();                                                       //change "handleFullScreen_()" to "handleDimension_" -->renaming caused error
 };
 
 
 /**
  * @private
  */
-ol.control.DimensionSwitcher.prototype.handleFullScreen_ = function() {
-  if (!ol.control.DimensionSwitcher.isFullScreenSupported()) {
-    return;
+ol.control.DimensionSwitcher.prototype.handleDimension__ = function() {         //change "handleFullScreen_()" to "handleDimension_"
+  if (!ol.control.DimensionSwitcher.isFullScreenSupported()) {                  //can probably be deleted, since we are not going into FullScreen mode
+    return;                                                                    //instead insert "handleDimension_" function here
   }
   var map = this.getMap();
   if (!map) {
     return;
   }
-  if (ol.control.DimensionSwitcher.isFullScreen()) {
-    ol.control.DimensionSwitcher.exitFullScreen();
-  } else {
+  if (ol.control.DimensionSwitcher.is2D()) {                           //case distiction --> change "isFullScreen" to "is2D"
+    ol.control.DimensionSwitcher.exit2D();                             //function to get out of Fullscreen --> change "exitFullScreen" to "exit2D"
+  } else {                                                                     
     var element;
     if (this.source_) {
-      element = typeof this.source_ === 'string' ?
+      element = typeof this.source_ === 'string' ?                             // which string?
         document.getElementById(this.source_) :
         this.source_;
     } else {
       element = map.getTargetElement();
     }
-    if (this.keys_) {
-      ol.control.DimensionSwitcher.requestFullScreenWithKeys(element);
+    if (this.keys_) {                                                          //keys-shortcut for fullscreen --> delete
+      ol.control.DimensionSwitcher.requestFullScreenWithKeys(element);         //keys-shortcut for fullscreen --> delete
 
     } else {
-      ol.control.DimensionSwitcher.requestFullScreen(element);
+      ol.control.DimensionSwitcher.request2D(element);                //change"requestFullscreen" to "request2D"
     }
   }
 };
@@ -129,10 +129,10 @@ ol.control.DimensionSwitcher.prototype.handleFullScreen_ = function() {
 /**
  * @private
  */
-ol.control.DimensionSwitcher.prototype.handleFullScreenChange_ = function() {
+ol.control.DimensionSwitcher.prototype.handleDimensionChange_ = function() {     //change "handleFullScreenChange_" to "handleDimensionChange_"
   var button = this.element.firstElementChild;
   var map = this.getMap();
-  if (ol.control.DimensionSwitcher.isFullScreen()) {
+  if (ol.control.DimensionSwitcher.is2D()) {                              //change "isFullScreen" to "is2D"
     button.className = this.cssClassName_ + '-true';
     ol.dom.replaceNode(this.labelActiveNode_, this.labelNode_);
   } else {
@@ -140,7 +140,7 @@ ol.control.DimensionSwitcher.prototype.handleFullScreenChange_ = function() {
     ol.dom.replaceNode(this.labelNode_, this.labelActiveNode_);
   }
   if (map) {
-    map.updateSize();
+    map.updateSize();                                                             //not sure what to replace "updateSiz" with
   }
 };
 
@@ -149,18 +149,18 @@ ol.control.DimensionSwitcher.prototype.handleFullScreenChange_ = function() {
  * @inheritDoc
  * @api stable
  */
-ol.control.DimensionSwitcher.prototype.setMap = function(map) {
+ol.control.DimensionSwitcher.prototype.setMap = function(map) {                   //setMap = Remove the control from its current map and attach it to the new map
   ol.control.Control.prototype.setMap.call(this, map);
   if (map) {
     this.listenerKeys.push(ol.events.listen(document,
         ol.control.DimensionSwitcher.getChangeType_(),
-        this.handleFullScreenChange_, this)
-    );
+        this.handleDimensionChange_, this)                                       //change "handleFullScreenChange_" to "handleDimensionChange_"
+    );  
   }
 };
 
 /**
- * @return {boolean} Fullscreen is supported by the current platform.
+ * @return {boolean} Fullscreen is supported by the current platform.             //delete whole thing? Why would platform not support 2D...
  */
 ol.control.DimensionSwitcher.isFullScreenSupported = function() {
   var body = document.body;
@@ -173,11 +173,11 @@ ol.control.DimensionSwitcher.isFullScreenSupported = function() {
 };
 
 /**
- * @return {boolean} Element is currently in fullscreen.
+ * @return {boolean} Element is currently in fullscreen.                          //check if something is alread in 2D
  */
-ol.control.DimensionSwitcher.isFullScreen = function() {
+ol.control.DimensionSwitcher.is2D = function() {                          //change "isFullScreen" to "is2D"
   return !!(
-    document.webkitIsFullScreen || document.mozFullScreen ||
+    document.webkitIsFullScreen || document.mozFullScreen ||                      //insert DimensionSwitcher function ????...
     document.msFullscreenElement || document.fullscreenElement
   );
 };
@@ -186,7 +186,7 @@ ol.control.DimensionSwitcher.isFullScreen = function() {
  * Request to fullscreen an element.
  * @param {Node} element Element to request fullscreen
  */
-ol.control.DimensionSwitcher.requestFullScreen = function(element) {
+ol.control.DimensionSwitcher.request2D = function(element) {              //...or here?
   if (element.requestFullscreen) {
     element.requestFullscreen();
   } else if (element.msRequestFullscreen) {
@@ -202,20 +202,20 @@ ol.control.DimensionSwitcher.requestFullScreen = function(element) {
  * Request to fullscreen an element with keyboard input.
  * @param {Node} element Element to request fullscreen
  */
-ol.control.DimensionSwitcher.requestFullScreenWithKeys = function(element) {
+ol.control.DimensionSwitcher.requestFullScreenWithKeys = function(element) {      //if keys-shortcut deleted above, delete this whole paragraph
   if (element.mozRequestFullScreenWithKeys) {
     element.mozRequestFullScreenWithKeys();
   } else if (element.webkitRequestFullscreen) {
     element.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
   } else {
-    ol.control.DimensionSwitcher.requestFullScreen(element);
+    ol.control.DimensionSwitcher.request2D(element);
   }
 };
 
 /**
  * Exit fullscreen.
  */
-ol.control.DimensionSwitcher.exitFullScreen = function() {
+ol.control.DimensionSwitcher.exit2D = function() {                      //change "exitFullScreen" to "exit2D", insert DimensionSwitcher function for 3D back-change
   if (document.exitFullscreen) {
     document.exitFullscreen();
   } else if (document.msExitFullscreen) {
