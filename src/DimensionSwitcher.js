@@ -17,35 +17,47 @@ goog.provide('ol.control.DimensionSwitcher');
  * @param {olx.control.DimensionSwitcherOptions=} opt_options Options.
  * @api stable
  */
-ol.control.DimensionSwitcher = function(opt_options) {
 
-  var options = opt_options ? opt_options : {};
+//DimensionSwitcher is a function based on iput options ??
+ol.control.DimensionSwitcher = function(opt_options) {                    
+
+  //store as object options: if opt_options is TRUE (exists?) opt_options exists, else it doesn't (??)
+  var options = opt_options ? opt_options : {};                           
 
   /**
    * @private
    * @type {string}
    */
+  //this is global object with the property cssClassName
+  //if the property className of options is not undefined it will make up cssClassName_, else take the class 'dimension_button'
   this.cssClassName_ = options.className !== undefined ? options.className :
       'dimension_button';                                                       //change class name from 'ol-full-screen' to 'dimension_button'                                                                
                                                                                 //position changed, but format is not acurate
+  //if the property label of the object options is not undefined it will make up label, else take '2D' as label                                                                            
   var label = options.label !== undefined ? options.label : '2D';         //'\u2922' signifies the diagonal double arrow --> change to "2D"
 
   /**
    * @private
    * @type {Node}
    */
+  //this is a global object with the property labelNode_
+  //if the type of the label is string create a document object with a text node containing label ('2D'), else use existing label
   this.labelNode_ = typeof label === 'string' ?
       document.createTextNode(label) : label;
 
+  //if labelActive of the object options is not undefined, it will make up labelActive, else '3D' makes up labelActive
   var labelActive = options.labelActive !== undefined ? options.labelActive : '3D'; //'\u00d7' signifies the cross --> change to "3D"
 
   /**
    * @private
    * @type {Node}
    */
+  //this is a global object with the property labelActiveNode_
+  //if the type of the labelActive is string create a document object with a text node containing labelActive ('3D'), else use existing labelActive
   this.labelActiveNode_ = typeof labelActive === 'string' ?
       document.createTextNode(labelActive) : labelActive;
-
+      
+  //TBC
   var tipLabel = options.tipLabel ? options.tipLabel : 'Toggle Dimension';        //'Toggle full-screen' is hover label --> change to "Toggle Dimension"
   var button = document.createElement('button');
   button.className = this.cssClassName_ + '-' + ol.control.DimensionSwitcher.is2D(); //change is "isFullScreen" to "is2D"
@@ -90,14 +102,14 @@ ol.inherits(ol.control.DimensionSwitcher, ol.control.Control);
  */
 ol.control.DimensionSwitcher.prototype.handleClick_ = function(event) {
   event.preventDefault();
-  this.handleDimension_();                                                       //change "handleFullScreen_()" to "handleDimension_" -->renaming caused error
+  this.handleDimension_;                                                       //change "handleFullScreen_()" to "handleDimension_" -->renaming caused error
 };
 
 
 /**
  * @private
  */
-ol.control.DimensionSwitcher.prototype.handleDimension__ = function() {         //change "handleFullScreen_()" to "handleDimension_"
+ol.control.DimensionSwitcher.prototype.handleDimension_ = function() {         //change "handleFullScreen_()" to "handleDimension_" --> server disconnects when "()" is added
   if (!ol.control.DimensionSwitcher.isFullScreenSupported()) {                  //can probably be deleted, since we are not going into FullScreen mode
     return;                                                                    //instead insert "handleDimension_" function here
   }
@@ -140,7 +152,7 @@ ol.control.DimensionSwitcher.prototype.handleDimensionChange_ = function() {    
     ol.dom.replaceNode(this.labelNode_, this.labelActiveNode_);
   }
   if (map) {
-    map.updateSize();                                                             //not sure what to replace "updateSiz" with
+    map.updateSize();                                                             //not sure what to replace "updateSize" with
   }
 };
 
