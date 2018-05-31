@@ -56,27 +56,41 @@ ol.control.DimensionSwitcher = function(opt_options) {
   //if the type of the labelActive is string create a document object with a text node containing labelActive ('3D'), else use existing labelActive
   this.labelActiveNode_ = typeof labelActive === 'string' ?
       document.createTextNode(labelActive) : labelActive;
-      
-  //TBC
+
+  //if the property tip.label of the object options is not undefined it will make up tiplabel, else take 'Toggle Dimension' as tiplabel 
   var tipLabel = options.tipLabel ? options.tipLabel : 'Toggle Dimension';        //'Toggle full-screen' is hover label --> change to "Toggle Dimension"
+  //create a document object called button of the type 'button'
   var button = document.createElement('button');
-  button.className = this.cssClassName_ + '-' + ol.control.DimensionSwitcher.is2D(); //change is "isFullScreen" to "is2D"
+  //the property className of button is the concatenation 'dimension_button','-' and True/False
+  button.className = this.cssClassName_ + '-' + ol.control.DimensionSwitcher.is2D(); //change "isFullScreen" to "is2D"
+  //the Attribute type for the variable button is set to button
   button.setAttribute('type', 'button');
+  //assign the title 'Toggle Dimension' to the button
   button.title = tipLabel;
+  //assign the text node '2D' to the button 
   button.appendChild(this.labelNode_);
 
+  //clicking the button triggers the associated event handleClick_ 
   ol.events.listen(button, ol.events.EventType.CLICK,
       this.handleClick_, this);
 
+  //create the variable cssClasses containing class names for the button
   var cssClasses = this.cssClassName_ + ' ' + ol.css.CLASS_UNSELECTABLE +
       ' ' + ol.css.CLASS_CONTROL + ' ' +
+      //if Fullscreen is not supported use ol.css.CLASS_UNSUPPORTED as 4th class in cssClasses else no 4th class
       (!ol.control.DimensionSwitcher.isFullScreenSupported() ? ol.css.CLASS_UNSUPPORTED : ''); //not sure if "isFullScreenSupported" needs to be changed
+  //create a document object called element of the type 'div'
   var element = document.createElement('div');
+  //assign the 3/4 classes from cssClasses to element
   element.className = cssClasses;
+  //assign the div with the css classes to the button
   element.appendChild(button);
 
+  //call method Control from object ol.control, don't understand the 'this'
   ol.control.Control.call(this, {
+    //TBC ??
     element: element,
+    //TBC ??
     target: options.target
   });
 
@@ -84,6 +98,7 @@ ol.control.DimensionSwitcher = function(opt_options) {
    * @private
    * @type {boolean}
    */
+  //if the property key of the object options is not undefined it will make up the global variable keys_, else set it to false  
   this.keys_ = options.keys !== undefined ? options.keys : false;
 
   /**
