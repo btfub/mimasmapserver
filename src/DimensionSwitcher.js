@@ -105,9 +105,12 @@ ol.control.DimensionSwitcher = function(opt_options) {
    * @private
    * @type {Element|string|undefined}
    */
+  //the global object with the property source_ is made up by the source of the object options (TBC content???)
   this.source_ = options.source;
 
 };
+
+//ol.control.DimensionSwitcher inherits methods from ol.control.Control
 ol.inherits(ol.control.DimensionSwitcher, ol.control.Control);
 
 
@@ -115,37 +118,52 @@ ol.inherits(ol.control.DimensionSwitcher, ol.control.Control);
  * @param {Event} event The event to handle
  * @private
  */
+//add mew method handle_Click_ to the DimensionSwitcher prototype
+//when clicking execute the method handleDimension_ defined below
 ol.control.DimensionSwitcher.prototype.handleClick_ = function(event) {
+  //stop event propagation
   event.preventDefault();
-  this.handleDimension_;                                                       //change "handleFullScreen_()" to "handleDimension_" -->renaming caused error
+  //execute method handleDimension_
+  this.handleDimension_();                                                       //change "handleFullScreen_()" to "handleDimension_()"
 };
 
 
 /**
  * @private
  */
-ol.control.DimensionSwitcher.prototype.handleDimension_ = function() {         //change "handleFullScreen_()" to "handleDimension_" --> server disconnects when "()" is added
+//add mew method handleDimension_ to the DimensionSwitcher prototype
+ol.control.DimensionSwitcher.prototype.handleDimension_ = function() {         //change "handleFullScreen_" to "handleDimension_"
+  //if full screen is not supported stop execution of function isFullScreenSupported (defined below)
   if (!ol.control.DimensionSwitcher.isFullScreenSupported()) {                  //can probably be deleted, since we are not going into FullScreen mode
-    return;                                                                    //instead insert "handleDimension_" function here
+    return;                                                                    //instead insert "handleDimension_()" function here
   }
+  //display map object
   var map = this.getMap();
+  //if the map object doesn't exist stop function (TBC ???)
   if (!map) {
     return;
   }
+  //if the map is in 2D, exit 2D mode (make it 3D), else 
   if (ol.control.DimensionSwitcher.is2D()) {                           //case distiction --> change "isFullScreen" to "is2D"
     ol.control.DimensionSwitcher.exit2D();                             //function to get out of Fullscreen --> change "exitFullScreen" to "exit2D"
-  } else {                                                                     
+  } else {                                                                
     var element;
+    //if source_ exists, else
     if (this.source_) {
-      element = typeof this.source_ === 'string' ?                             // which string?
+      //..if the global property source_ has the value and type 'string', the document object from the global property source_ makes up element..
+      element = typeof this.source_ === 'string' ?                                  
         document.getElementById(this.source_) :
+        //..else source_ is makes up element
         this.source_;
+    //element becomes the DOM element into which this map is rendered
     } else {
       element = map.getTargetElement();
     }
+    //if keys_ exists
     if (this.keys_) {                                                          //keys-shortcut for fullscreen --> delete
+      //execute requestFullScreenWithKeys defined below using the element parameter from above
       ol.control.DimensionSwitcher.requestFullScreenWithKeys(element);         //keys-shortcut for fullscreen --> delete
-
+     //else execute request2D using the element parameter from above
     } else {
       ol.control.DimensionSwitcher.request2D(element);                //change"requestFullscreen" to "request2D"
     }
@@ -156,17 +174,28 @@ ol.control.DimensionSwitcher.prototype.handleDimension_ = function() {         /
 /**
  * @private
  */
+//definition of the handleDimensionChange_ function
 ol.control.DimensionSwitcher.prototype.handleDimensionChange_ = function() {     //change "handleFullScreenChange_" to "handleDimensionChange_"
+  //make element a firstElementChild of the button object
   var button = this.element.firstElementChild;
+  //map stored in map object
   var map = this.getMap();
+  //if method is2D is called
   if (ol.control.DimensionSwitcher.is2D()) {                              //change "isFullScreen" to "is2D"
+    //give button the css class addition '-true'
     button.className = this.cssClassName_ + '-true';
+    //replace the labelActiveNode_ ('3D') with the labelNode('2D')
     ol.dom.replaceNode(this.labelActiveNode_, this.labelNode_);
+  //else
   } else {
+    //give button the css class addition '-false'
     button.className = this.cssClassName_ + '-false';
+    //replace the labelNode('2D') with the labelActiveNode_ ('3D')
     ol.dom.replaceNode(this.labelNode_, this.labelActiveNode_);
   }
+  //if map exists (??? TBC)
   if (map) {
+    //force a recalculation of the map viewport size
     map.updateSize();                                                             //not sure what to replace "updateSize" with
   }
 };
@@ -176,9 +205,14 @@ ol.control.DimensionSwitcher.prototype.handleDimensionChange_ = function() {    
  * @inheritDoc
  * @api stable
  */
-ol.control.DimensionSwitcher.prototype.setMap = function(map) {                   //setMap = Remove the control from its current map and attach it to the new map
+//definition of the setMap function
+//function setMap removes the control from its current map and attach it to the new map
+ol.control.DimensionSwitcher.prototype.setMap = function(map) {
+  //call method setMap from object ol.control.Control.prototype, don't understand the 'this'
   ol.control.Control.prototype.setMap.call(this, map);
+  //if map exists
   if (map) {
+    //adds global listenerKeys containing document, getChangeType_, handleDimensionChange_ and this to 'this' (??? TBC)
     this.listenerKeys.push(ol.events.listen(document,
         ol.control.DimensionSwitcher.getChangeType_(),
         this.handleDimensionChange_, this)                                       //change "handleFullScreenChange_" to "handleDimensionChange_"
@@ -189,6 +223,8 @@ ol.control.DimensionSwitcher.prototype.setMap = function(map) {                 
 /**
  * @return {boolean} Fullscreen is supported by the current platform.             //delete whole thing? Why would platform not support 2D...
  */
+//definition of the isFullScreenSupported function
+//function isFullScreenSupported enables fullscreen for different browsers
 ol.control.DimensionSwitcher.isFullScreenSupported = function() {
   var body = document.body;
   return !!(
@@ -202,6 +238,8 @@ ol.control.DimensionSwitcher.isFullScreenSupported = function() {
 /**
  * @return {boolean} Element is currently in fullscreen.                          //check if something is alread in 2D
  */
+//definition of the is2D function
+//function is2D checks if the map is set to 2D already
 ol.control.DimensionSwitcher.is2D = function() {                          //change "isFullScreen" to "is2D"
   return !!(
     document.webkitIsFullScreen || document.mozFullScreen ||                      //insert DimensionSwitcher function ????...
@@ -213,6 +251,8 @@ ol.control.DimensionSwitcher.is2D = function() {                          //chan
  * Request to fullscreen an element.
  * @param {Node} element Element to request fullscreen
  */
+//definition of the request2D function
+//function request2D request a 2D map for all browser types
 ol.control.DimensionSwitcher.request2D = function(element) {              //...or here?
   if (element.requestFullscreen) {
     element.requestFullscreen();
@@ -229,6 +269,8 @@ ol.control.DimensionSwitcher.request2D = function(element) {              //...o
  * Request to fullscreen an element with keyboard input.
  * @param {Node} element Element to request fullscreen
  */
+//definition of the requestFullScreenWithKeys function
+//function requestFullScreenWithKeys triggers request2D through key input for all browser types
 ol.control.DimensionSwitcher.requestFullScreenWithKeys = function(element) {      //if keys-shortcut deleted above, delete this whole paragraph
   if (element.mozRequestFullScreenWithKeys) {
     element.mozRequestFullScreenWithKeys();
@@ -242,6 +284,8 @@ ol.control.DimensionSwitcher.requestFullScreenWithKeys = function(element) {    
 /**
  * Exit fullscreen.
  */
+//definition of the exit2D function
+//function exit2D change the map from 2D to 3D for all browsers
 ol.control.DimensionSwitcher.exit2D = function() {                      //change "exitFullScreen" to "exit2D", insert DimensionSwitcher function for 3D back-change
   if (document.exitFullscreen) {
     document.exitFullscreen();
@@ -258,6 +302,8 @@ ol.control.DimensionSwitcher.exit2D = function() {                      //change
  * @return {string} Change type.
  * @private
  */
+//definition of the getChangeType_ function
+//function getChangeType_ detect browser type and returns the respective change to fullscreen
 ol.control.DimensionSwitcher.getChangeType_ = (function() {
   var changeType;
   return function() {
