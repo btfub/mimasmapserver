@@ -27,11 +27,11 @@ ol.control.DimensionSwitcher = function(opt_options) {
   /**
    * @private
    * @type {string}
-   */
   //this is global object with the property cssClassName
   //if the property className of options is not undefined it will make up cssClassName_, else take the class 'dimension_button'
+   */
   this.cssClassName_ = options.className !== undefined ? options.className :
-      'dimension_button';                                                       //change class name from 'ol-full-screen' to 'dimension_button'                                                                
+      'dimension_button';                                                       //change class name from 'ol-full-screen' to 'dimension_button'                                                               
                                                                                 //position changed, but format is not acurate
   //if the property label of the object options is not undefined it will make up label, else take '2D' as label                                                                            
   var label = options.label !== undefined ? options.label : '2D';         //'\u2922' signifies the diagonal double arrow --> change to "2D"
