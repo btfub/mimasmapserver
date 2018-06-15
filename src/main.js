@@ -179,6 +179,8 @@ app.ol3d = new olcs.OLCesium({
         });
 
 app.ol3d.scene_.skyAtmosphere.show=false;
+
+app.is3D=true;
 app.ol3d.setEnabled(true);
 
 //app.map.addControl(
