@@ -33,10 +33,12 @@ ol.control.DimensionSwitcher = function(opt_options) {
   this.label_.className = 'ol-dimension';
   this.label_.textContent = label;*/
 
-  var tipLabel = options.tipLabel ? options.tipLabel : 'Reset rotation';
+  var tipLabel = options.tipLabel ? options.tipLabel : 'Toggle Dimension';
     
   var button = document.createElement('button');
   button.className = className + '-reset';
+  //assign the title 'Toggle Dimension' to the button
+  button.title = tipLabel;
   button.setAttribute('type', 'button');
   //button.title = tipLabel;
   button.appendChild(this.labelNode_);
