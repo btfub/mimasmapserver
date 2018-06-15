@@ -6,37 +6,14 @@
 #background-color: black;
 }
 
-
-/* Only 2D/3D area, no the box around it */
-.dimension_button {
-    top: 8em;
-    right: 1em;
-    width: 2em;
-    height: 2em;
-    background-color: black;
-    #color:white;
-    #line-height:2em;
-    #text-align: center;
-    #font-size: 1em;
-    #font-weight: bold;
-    #font-family: 'Impact', fantasy, sans-serif;
-}
-
-.dimension_button:hover {
-    background: black;
-    #color:#fdec00;
-}
-
-
-
-/* Overwrite default style*/
-
+/* Overwrite default styles*/
 .ol-control button{
     #top: 8em;
     #right: 1em;
     width: 2em;
     height: 2em;
     background-color: black;
+    #border: 2px solid black;
     #color:white;
     #line-height:2em;
     #text-align: center;
