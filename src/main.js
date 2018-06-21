@@ -1,4 +1,5 @@
 goog.provide('app');
+goog.require('ol.control.MoonSwitcher');
 
 //goog.require('ol.Map');
 //goog.require('ol.View');
@@ -147,6 +148,7 @@ app.LayerSwitcher = new ol.control.LayerSwitcher();
 app.controls = new ol.control.defaults({
     attribution: false
 }).extend([
+	new ol.control.MoonSwitcher(), // added by me
    app.LayerSwitcher
 ]);
 
@@ -183,4 +185,7 @@ app.ol3d = new olcs.OLCesium({
         });
 
 app.ol3d.scene_.skyAtmosphere.show=false;
+
+app.isMimas=true;
+
 app.ol3d.setEnabled(true);

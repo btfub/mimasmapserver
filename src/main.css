@@ -6,3 +6,34 @@
 #map > div > div.ol-overlaycontainer-stopevent.olcs-hideoverlay > div:nth-child(4) > button {
 background-color: black;
 }
+
+
+/* Overwrite default styles*/
+.ol-control button{
+    width: 2em;
+    height: 2em;
+    background-color: black;
+    border: None;
+    #color:white;
+    font-family: 'Impact', fantasy, sans-serif;
+}
+
+.ol-control button:hover {
+    background: black;
+    #border: 2px solid #e6ce1d;
+    border-radius: 5px;
+    color:#fdec00;
+}
+
+.ol-control button:focus{
+    background-color:black;
+    outline: none;
+}
+
+.ol-control{
+    background-color: black;
+}
+
+.ol-control:hover{
+    background-color: black;
+}
