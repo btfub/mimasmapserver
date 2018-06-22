@@ -57,7 +57,7 @@ ol.control.MoonSwitcher.prototype.handleClick_ = function(event) {
  * @private
  */
 //definition of the handleMoonChange_ function
-ol.control.MoonSwitcher.prototype.changeLabel_ = function() {     //change "handleFullScreenChange_" to "handleMoonChange_"
+ol.control.MoonSwitcher.prototype.changeLabel_ = function() {
   var map = this.getMap();
   var button = this.element.firstElementChild;
   if (!app.isMimas) {
@@ -77,11 +77,11 @@ ol.control.MoonSwitcher.prototype.toggleMoon = function() {
   var map = this.getMap();
   var view = map.getView();
   if (app.isMimas==true) {
-  //console.dir("switch to 2D");
+  //console.dir("switch to M2");
   app.ol3d.setEnabled(false);
   app.isMimas=false;
   } else {
-    //console.dir("switch to 3D");
+    //console.dir("switch to M");
     app.ol3d.setEnabled(true);
     app.isMimas=true;
   }

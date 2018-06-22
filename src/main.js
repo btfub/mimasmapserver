@@ -174,15 +174,33 @@ app.map = new ol.Map({
     controls: app.controls,
 });
 
+
+app.map2 = new ol.Map({
+    target: 'map2',
+    layers: [
+                app.N1644785949_foot,
+                app.gridTileWms,
+                //app.gridwfs
+        ],
+    view: app.view,
+    controls: app.controls,
+});
+
+
 app.layerSwitcher = new ol.control.LayerSwitcher({
         tipLabel: 'Légende' // Optional label for button
     });
+    
+app.map2.addControl(app.layerSwitcher);    
 app.map.addControl(app.layerSwitcher);
 
+
 app.ol3d = new olcs.OLCesium({
+        map: app.map2,
         map: app.map,
         sceneOptions: { show: true }
         });
+
 
 app.ol3d.scene_.skyAtmosphere.show=false;
 
