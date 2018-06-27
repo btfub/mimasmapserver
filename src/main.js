@@ -155,6 +155,18 @@ app.controls = new ol.control.defaults({
 /**
  * @type {ol.Map}
  */
+
+app.map2 = new ol.Map({
+    target: 'map2',
+    layers: [	
+                app.N1644785949_foot,
+                app.gridTileWms,
+        ],
+    view: app.view,
+    controls: app.controls,
+});
+
+/*
 app.map = new ol.Map({
     target: 'map',
     layers: [
@@ -173,37 +185,25 @@ app.map = new ol.Map({
     view: app.view,
     controls: app.controls,
 });
+*/
 
 
-app.map2 = new ol.Map({
-    target: 'map2',
-    layers: [
-                app.N1644785949_foot,
-                app.gridTileWms,
-                //app.gridwfs
-        ],
-    view: app.view,
-    controls: app.controls,
-});
-
+//if (app.isMimas == true) {var maps = app.map;} else {var maps = app.map2;};
 
 app.layerSwitcher = new ol.control.LayerSwitcher({
         tipLabel: 'Légende' // Optional label for button
     });
-    
-app.map2.addControl(app.layerSwitcher);    
-app.map.addControl(app.layerSwitcher);
 
+app.isMimas=true;
+
+app.map2.addControl(app.layerSwitcher);    
+//app.map.addControl(app.layerSwitcher);
 
 app.ol3d = new olcs.OLCesium({
-        map: app.map2,
-        map: app.map,
+		map: app.map2,
         sceneOptions: { show: true }
         });
 
-
 app.ol3d.scene_.skyAtmosphere.show=false;
-
-app.isMimas=true;
 
 app.ol3d.setEnabled(true);
