@@ -156,10 +156,10 @@ app.controls = new ol.control.defaults({
  * @type {ol.Map}
  */
 
-app.map2 = new ol.Map({
-    target: 'map2',
+app.map = new ol.Map({
+    target: 'map',
     layers: [	
-                app.N1644785949_foot,
+    			app.N1644785949_foot,
                 app.gridTileWms,
         ],
     view: app.view,
@@ -187,20 +187,20 @@ app.map = new ol.Map({
 });
 */
 
-
+app.isMimas=true;
 //if (app.isMimas == true) {var maps = app.map;} else {var maps = app.map2;};
 
 app.layerSwitcher = new ol.control.LayerSwitcher({
         tipLabel: 'Légende' // Optional label for button
     });
 
-app.isMimas=true;
 
-app.map2.addControl(app.layerSwitcher);    
+
+app.map.addControl(app.layerSwitcher);    
 //app.map.addControl(app.layerSwitcher);
 
 app.ol3d = new olcs.OLCesium({
-		map: app.map2,
+		map: app.map,
         sceneOptions: { show: true }
         });
 
