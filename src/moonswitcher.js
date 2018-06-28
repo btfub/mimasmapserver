@@ -77,12 +77,12 @@ ol.control.MoonSwitcher.prototype.toggleMoon = function() {
   var map = this.getMap();
   var view = map.getView();
   if (app.isMimas==true) {
-  //console.dir("switch to M2");
-  app.ol3d.setEnabled(false);
-  app.isMimas=false;
+  console.dir("switch to M2"); //insert action here
+  //app.ol3d.setEnabled(false);
+    app.isMimas=false;
   } else {
-    //console.dir("switch to M");
-    app.ol3d.setEnabled(true);
+   console.dir("switch to M");
+    //app.ol3d.setEnabled(true);
     app.isMimas=true;
   }
 };
