@@ -155,53 +155,45 @@ app.controls = new ol.control.defaults({
 /**
  * @type {ol.Map}
  */
-app.isMimas=false;
- 
-if (app.isMimas == true){
 
-	app.map = new ol.Map({
-    target: 'map',
-    layers: [
-                app.base,
-                //app.geol001,
-                app.ISS_126MI_FP3DAYMAP001,
-                new ol.layer.Group({
-                        'title': 'Individual images',
-                        'visible': true,
-                        layers: app.cassImageLayers
-                }),
-                app.N1644785949_foot,
-                app.gridTileWms,
-                //app.gridwfs
-        ],
-    view: app.view,
-    controls: app.controls,
+var moonlayers = app.isMimas == true ? [
+				app.base,
+				//app.geol001,
+				app.ISS_126MI_FP3DAYMAP001,
+				new ol.layer.Group({
+						'title': 'Individual images',
+						'visible': true,
+						layers: app.cassImageLayers
+				}),
+				app.N1644785949_foot,
+				app.gridTileWms,
+				//app.gridwfs
+		]: [	
+				app.N1644785949_foot,
+				app.gridTileWms,
+		];
+
+
+app.map = new ol.Map({
+	target: 'map',//has to be 'map', 'map2' for example doesn't work
+	layers: moonlayers,
+	view: app.view,
+	controls: app.controls,
 });
-}
-
-else{
-	app.map = new ol.Map({
-		target: 'map', //has to be 'map', 'map2' for example doesn't work
-		layers: [	
-					app.N1644785949_foot,
-					app.gridTileWms,
-			],
-		view: app.view,
-		controls: app.controls,
-	});
-};
 
 app.layerSwitcher = new ol.control.LayerSwitcher({
         tipLabel: 'Légende' // Optional label for button
     });
-
-app.map.addControl(app.layerSwitcher);    
-
+   
 app.ol3d = new olcs.OLCesium({
 		map: app.map,
         sceneOptions: { show: true }
         });
 
 app.ol3d.scene_.skyAtmosphere.show=false;
+
+app.map.addControl(app.layerSwitcher);
+
+app.isMimas = true;
 
 app.ol3d.setEnabled(true);
