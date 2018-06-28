@@ -156,8 +156,8 @@ app.controls = new ol.control.defaults({
  * @type {ol.Map}
  */
 
-app.map = new ol.Map({
-    target: 'map',
+app.map2 = new ol.Map({
+    target: 'map', //has to be 'map', 'map2' for example doesn't work
     layers: [	
     			app.N1644785949_foot,
                 app.gridTileWms,
@@ -196,11 +196,11 @@ app.layerSwitcher = new ol.control.LayerSwitcher({
 
 
 
-app.map.addControl(app.layerSwitcher);    
+app.map2.addControl(app.layerSwitcher);    
 //app.map.addControl(app.layerSwitcher);
 
 app.ol3d = new olcs.OLCesium({
-		map: app.map,
+		map: app.map2,
         sceneOptions: { show: true }
         });
 
