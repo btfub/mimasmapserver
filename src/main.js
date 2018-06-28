@@ -155,8 +155,7 @@ app.controls = new ol.control.defaults({
 /**
  * @type {ol.Map}
  */
-
-var moonlayers = app.isMimas == true ? [
+var m = [
 				app.base,
 				//app.geol001,
 				app.ISS_126MI_FP3DAYMAP001,
@@ -168,11 +167,14 @@ var moonlayers = app.isMimas == true ? [
 				app.N1644785949_foot,
 				app.gridTileWms,
 				//app.gridwfs
-		]: [	
+		]
+var m2 = [	
 				app.N1644785949_foot,
 				app.gridTileWms,
 		];
+var moonlayers = app.isMimas == true ? m: m2;
 
+app.isMimas = true;
 
 app.map = new ol.Map({
 	target: 'map',//has to be 'map', 'map2' for example doesn't work
@@ -194,6 +196,6 @@ app.ol3d.scene_.skyAtmosphere.show=false;
 
 app.map.addControl(app.layerSwitcher);
 
-app.isMimas = true;
+
 
 app.ol3d.setEnabled(true);
