@@ -155,22 +155,23 @@ app.controls = new ol.control.defaults({
 /**
  * @type {ol.Map}
  */
-app.isMimas = true; //POSITION 1
+//app.isMimas = false; //POSITION 1 --> works
 
-var m = [app.base,	
+app.m = [app.base,	//doesn't work as variable either (var m)
 		 app.ISS_126MI_FP3DAYMAP001,	
 		 new ol.layer.Group({'title': 'Individual images','visible': true,layers: app.cassImageLayers}),
 		 app.N1644785949_foot,
 		 app.gridTileWms,];
-var m2 = [app.N1644785949_foot,
+app.m2 = [app.N1644785949_foot, //doesn't work as variable either (var m2)
 		  app.gridTileWms];
-var moonlayers = app.isMimas == true ? m: m2;
 
-//app.isMimas = false; //POSITION 2
+
+app.isMimas = false; //POSITION 2 --> works
+app.moonlayers = app.isMimas == true ? app.m: app.m2; //doesn't work as variable either (var moonlayers)
 
 app.map = new ol.Map({
 	target: 'map',
-	layers: moonlayers,
+	layers: app.moonlayers,
 	view: app.view,
 	controls: app.controls,
 });
@@ -189,5 +190,6 @@ app.ol3d.scene_.skyAtmosphere.show=false;
 //app.map.addControl(app.layerSwitcher); //unecessary
 
 //app.isMimas = true; //POSITION 3 --> shows m2 even though app.isMimas = true
+
 
 app.ol3d.setEnabled(true);

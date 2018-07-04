@@ -21,7 +21,8 @@ ol.control.MoonSwitcher = function(opt_options) {
   button.title = tipLabel;
   button.setAttribute('type', 'button');
   //button.title = tipLabel;
-  button.appendChild(this.labelNode_);
+  button.appendChild(this.label2Node_); //for isMimas=true put labelNode, isMimas=true put label2Node
+  //button.appendChild(app.isMimas == true ? this.labelNode_: this.label2Node_); //check which map is loaded when reloading page --> doens't work
 
   ol.events.listen(button, ol.events.EventType.CLICK,
       ol.control.MoonSwitcher.prototype.handleClick_, this);
@@ -77,16 +78,22 @@ ol.control.MoonSwitcher.prototype.toggleMoon = function() {
   var map = this.getMap();
   var view = map.getView();
   if (app.isMimas==true) {
-    console.dir("switch to M2"); //insert action here
-  //app.ol3d.setEnabled(false);
+    console.dir("switch to M2");
+    //app.ol3d.setEnabled(false);
     //app.map.render(); //doesn't work to update map
     //map.updateSize(); //doesn't work to update map
+    //this.getMap; //doesn't work to update map
+    //var moonlayers = m; //doesn't work to update map
+    //inserting complete app.map doesn't work
     app.isMimas=false;
   } else {
     console.dir("switch to M");
     //app.ol3d.setEnabled(true);
     //app.map.render(); //doesn't work to update map
     //map.updateSize(); //doesn't work to update map
+    //this.getMap; //doesn't work to update map
+    //var moonlayers = m2; //doesn't work to update map
+    //inserting complete app.map doesn't work
     app.isMimas=true;
   }
 };
