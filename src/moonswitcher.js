@@ -66,7 +66,7 @@ ol.control.MoonSwitcher.prototype.changeLabel_ = function() {
     ol.dom.replaceNode(this.labelNode_, this.label2Node_);
   }
   if (map) {
-    map.updateSize();
+    map.updateSize(); // change upon clicking button
   }
 };
 
@@ -77,12 +77,16 @@ ol.control.MoonSwitcher.prototype.toggleMoon = function() {
   var map = this.getMap();
   var view = map.getView();
   if (app.isMimas==true) {
-  console.dir("switch to M2"); //insert action here
+    console.dir("switch to M2"); //insert action here
   //app.ol3d.setEnabled(false);
+    //app.map.render(); //doesn't work to update map
+    //map.updateSize(); //doesn't work to update map
     app.isMimas=false;
   } else {
-   console.dir("switch to M");
+    console.dir("switch to M");
     //app.ol3d.setEnabled(true);
+    //app.map.render(); //doesn't work to update map
+    //map.updateSize(); //doesn't work to update map
     app.isMimas=true;
   }
 };
