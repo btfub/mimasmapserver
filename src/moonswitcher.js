@@ -80,20 +80,38 @@ ol.control.MoonSwitcher.prototype.toggleMoon = function() {
   if (app.isMimas==true) {
     console.dir("switch to M2");
     //app.ol3d.setEnabled(false);
+    //app.m2.setEnabled(true); //doesn't work to update map
     //app.map.render(); //doesn't work to update map
+    //map.render(); //doesn't work to update map
+    //app.map.updateSize(); //doesn't work to update map
     //map.updateSize(); //doesn't work to update map
     //this.getMap; //doesn't work to update map
     //var moonlayers = m; //doesn't work to update map
     //inserting complete app.map doesn't work
+    //app.moonlayers = m;//doesn't work to update map
+    //map: app.map; //doesn't work to update map
+    //app.map;//doesn't work to update map
+    //app.moonlayers.getSource().changed(); //doesn't work to update map
+    //map.getLayers();
+    //map.setLayerGroup();
     app.isMimas=false;
   } else {
     console.dir("switch to M");
     //app.ol3d.setEnabled(true);
+    //app.m2.setEnabled(false); //doesn't work to update map
     //app.map.render(); //doesn't work to update map
+    //map.render(); //doesn't work to update map
+    //app.map.updateSize(); //doesn't work to update map
     //map.updateSize(); //doesn't work to update map
     //this.getMap; //doesn't work to update map
     //var moonlayers = m2; //doesn't work to update map
     //inserting complete app.map doesn't work
+    //app.moonlayers = m2;//doesn't work to update map
+    //map: app.map; //doesn't work to update map
+    //app.map;//doesn't work to update map
+    //app.moonlayers.getSource().changed(); //doesn't work to update map
+    //map.getLayers();
+    //map.setLayerGroup();
     app.isMimas=true;
   }
 };
