@@ -155,47 +155,17 @@ app.controls = new ol.control.defaults({
 /**
  * @type {ol.Map}
  */
-//app.isMimas = false; //POSITION 1 --> works
-
-var m = [app.base,	//doesn't work as app.m either
+app.m = [app.base,
 		 app.ISS_126MI_FP3DAYMAP001,	
 		 new ol.layer.Group({'title': 'Individual images','visible': true,layers: app.cassImageLayers}),
 		 app.N1644785949_foot,
 		 app.gridTileWms];
-var m2 = [app.N1644785949_foot, //doesn't work as app.m2 either
+app.m2 = [app.N1644785949_foot,
 		  app.gridTileWms];
 
 
-app.isMimas = false; //POSITION 2 --> works
-app.moonlayers = app.isMimas == true ?  m: m2; //doesn't work as app.m/2 either
-
-/* //app.map with if-statement --> doesn't work
-app.map = new ol.Map({
-		target: 'map',
-		layers: app.isMimas == true ? m:m2,
-		view: app.view,
-		controls: app.controls,
-	});
-*/
-
-/* //layerGroup attempt --> doesn't work
-var moon = new ol.layer.Group(
-			app.base,
-			app.ISS_126MI_FP3DAYMAP001,
-			{'title': 'Individual images','visible': true,layers: app.cassImageLayers},
-			app.N1644785949_foot,
-			app.gridTileWms);
-var moon2 = new ol.layer.Group(
-			app.N1644785949_foot,
-			app.gridTileWms);
-
-app.map = new ol.Map({
-	target: 'map',
-	layers: [moon,moon2],
-	view: app.view,
-	controls: app.controls,
-});
-*/
+app.isMimas = false;
+app.moonlayers = app.isMimas == true ?  app.m: app.m2;
 
 app.map = new ol.Map({
 	target: 'map',
@@ -215,8 +185,4 @@ app.ol3d = new olcs.OLCesium({
 
 app.ol3d.scene_.skyAtmosphere.show=false;
 
-//app.map.addControl(app.layerSwitcher); //unecessary
-
-//app.isMimas = false; //POSITION 3 --> shows m2 even though app.isMimas = true
-
-app.ol3d.setEnabled(true);
+app.ol3d.setEnabled(false);
