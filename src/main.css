@@ -9,6 +9,8 @@ background-color: black;
 
 
 /* Overwrite default styles*/
+
+
 .ol-control button{
     width: 2em;
     height: 2em;
@@ -36,4 +38,11 @@ background-color: black;
 
 .ol-control:hover{
     background-color: black;
+}
+
+/*Moonswitcher placements, so it doesn't overlap with other buttons*/
+.ol-moonswitcher {
+    top: .5em;
+    right: 15em;
+    transition: opacity .25s linear, visibility 0s linear;
 }
