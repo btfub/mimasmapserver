@@ -83,11 +83,12 @@ background-color: black;
     font-size: 13px; /*no effect (for testing)*/
 }
 /*what I have tried*/ 
-/*option:,hover, active, focus, select
+/*
+option:,hover, active, focus, select
 select:hover, active
 select#mySelect,(:)option
 select#mySelect option:hover,active,focus,focus-within,visited
-.ol-control option[value="Mimas"]:hover,active,focus,focus-within,visited
+ontrol option[value="Mimas"]:hover,active,focus,focus-within,visited
 */
 
 
