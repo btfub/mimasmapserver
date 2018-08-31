@@ -9,6 +9,13 @@ background-color: black;
 
 
 /* Overwrite default styles*/
+.ol-control{
+    background-color: black;
+}
+
+.ol-control:hover{
+    background-color: black;
+}
 
 /*button --> zoom, layerswitcher*/
 .ol-control button{
@@ -45,6 +52,11 @@ background-color: black;
     color:#fdec00;
 }
 
+.ol-control select:focus{
+    background-color:black;
+    outline: none;
+}
+
 .ol-control option{
     color:white;
     font-weight: bold;
@@ -52,26 +64,35 @@ background-color: black;
     font-family: 'Impact', fantasy, sans-serif;
 }
 
-/*this part doesn't work yet*/
-.ol-control option:hover{
-    background: black;
-    color:#fdec00;
-}
-/*still orange when hovering over items*/
-
-
-.ol-control select:focus{
-    background-color:black;
-    outline: none;
+.ol-control option[value="Mimas"]{
+    color:white;/*works*/
+    outline:none;/*no effect*/
+    font-size: 20px; /*works (for testing)*/
 }
 
-.ol-control{
-    background-color: black;
+.ol-control option[value="Enceladus"]{
+    color:white;/*works*/
+    outline:none;/*no effect*/
+    font-size: 20px; /*works (for testing)*/
 }
 
-.ol-control:hover{
-    background-color: black;
+/*still orange when hovering over items, because it is the ubuntu dropdown color*/
+.ol-control option[value="Mimas"]:visited{
+    color:#fdec00;/*works*/
+    outline:none;/*no effect*/
+    font-size: 13px; /*no effect (for testing)*/
 }
+/*what I have tried*/ 
+/*option:,hover, active, focus, select
+select:hover, active
+select#mySelect,(:)option
+select#mySelect option:hover,active,focus,focus-within,visited
+.ol-control option[value="Mimas"]:hover,active,focus,focus-within,visited
+*/
+
+
+/**/
+
 
 /*Moonswitcher placements, so it doesn't overlap with other buttons*/
 .ol-moonswitcher {
