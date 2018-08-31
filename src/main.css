@@ -78,7 +78,7 @@ background-color: black;
 
 /*still orange when hovering over items, because it is the ubuntu dropdown color*/
 .ol-control option[value="Mimas"]:visited{
-    color:#fdec00;/*works*/
+    color:#fdec00;/*no effect*/
     outline:none;/*no effect*/
     font-size: 13px; /*no effect (for testing)*/
 }
