@@ -10,7 +10,7 @@ background-color: black;
 
 /* Overwrite default styles*/
 
-
+/*button --> zoom, layerswitcher*/
 .ol-control button{
     width: 2em;
     height: 2em;
@@ -32,6 +32,39 @@ background-color: black;
     outline: none;
 }
 
+/*select --> Moonswitcher dropdown menu*/
+.ol-control select{
+    background-color: black;
+    border: None;
+    color:white;
+    font-weight: bold;
+    font-family: 'Impact', fantasy, sans-serif;
+}
+
+.ol-control select:hover {
+    color:#fdec00;
+}
+
+.ol-control option{
+    color:white;
+    font-weight: bold;
+    font-size: 13px;
+    font-family: 'Impact', fantasy, sans-serif;
+}
+
+/*this part doesn't work yet*/
+.ol-control option:hover{
+    background: black;
+    color:#fdec00;
+}
+/*still orange when hovering over items*/
+
+
+.ol-control select:focus{
+    background-color:black;
+    outline: none;
+}
+
 .ol-control{
     background-color: black;
 }
@@ -46,3 +79,4 @@ background-color: black;
     right: 15em;
     transition: opacity .25s linear, visibility 0s linear;
 }
+

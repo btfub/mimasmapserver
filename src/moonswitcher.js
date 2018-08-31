@@ -32,6 +32,7 @@ ol.control.MoonSwitcher = function(opt_options) {
     var option = document.createElement("option");
     option.value = array[i];
     option.text = array[i];
+    //option.setAttribute("class", "hover-on-item"); //doesn't work yet, trying to avoid organge background
     selectList.appendChild(option);
 	};
 
