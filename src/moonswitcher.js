@@ -4,16 +4,35 @@ ol.control.MoonSwitcher = function(opt_options) {
 
   var options = opt_options ? opt_options : {};
 
+  var className = options.className !== undefined ? options.className : 'ol-moonswitcher';
+
+  var label = options.label !== undefined ? options.label : 'M';
+  this.labelNode_ = typeof label === 'string' ? document.createTextNode(label) : label;
+      
+  var label2 = options.label2 !== undefined ? options.label2 : 'M2';
+  this.label2Node_ = typeof label2 === 'string' ? document.createTextNode(label2) : label2;
+
+
+  var tipLabel = options.tipLabel ? options.tipLabel : 'Toggle Moon';
+  
 //VON HIER
-  //what happends when clicking on it
+  //what happends when clicking on dropdown element
   var selectList = document.createElement("select");
   selectList.id = "mySelect";
-  selectList.onchange = function(e){
-      console.log(e);
-      alert(this.value);
-      //this.toggleMoon; //also in line 88, not sure if needed here
+  selectList.title = tipLabel; //see next commented paragraph
+  selectList.appendChild(this.label2Node_);//see next commented paragraph
+  selectList.setAttribute('type', 'select');//see next commented paragraph
+
+  ol.events.listen(selectList, ol.events.EventType.CLICK,
+      ol.control.MoonSwitcher.prototype.handleSelection_, this); 
+      //original: ol.control.MoonSwitcher.prototype.handleClick_, this);
+  
+  //selectList.onchange = function(e){
+      //console.log(e);
+      //alert(this.value);
+      //this.toggleMoon; //also at bottom of code, not sure if needed here
       //this.changeLabel_();
-  };
+  //};
   
   //what appears on drop down menu
   var array = ["Mimas","Enceladus"];
@@ -25,33 +44,18 @@ ol.control.MoonSwitcher = function(opt_options) {
 	};
 
 //BIS HIER
-  var className = options.className !== undefined ? options.className : 'ol-moonswitcher';
-
-  var label = options.label !== undefined ? options.label : 'M';
-  this.labelNode_ = typeof label === 'string' ? document.createTextNode(label) : label;
-      
-  var label2 = options.label2 !== undefined ? options.label2 : 'M2';
-  this.label2Node_ = typeof label2 === 'string' ? document.createTextNode(label2) : label2;
-
-
-  var tipLabel = options.tipLabel ? options.tipLabel : 'Toggle Moon';
-    
-  //var button = document.createElement('button');
-  //button.className = className + '-reset';
-  //assign the title 'Toggle Moon' to the button
-  selectList.title = tipLabel;
-  //button.setAttribute('type', 'button');
-  //button.title = tipLabel;
-  //button.appendChild(this.label2Node_);
-  selectList.appendChild(this.label2Node_);
-
   
   /*
+  var button = document.createElement('button');
+  button.className = className + '-reset';
+  //assign the title 'Toggle Moon' to the button
+  button.setAttribute('type', 'button');
+  button.title = tipLabel;
+  button.appendChild(this.label2Node_);
+  
   ol.events.listen(button, ol.events.EventType.CLICK,
       ol.control.MoonSwitcher.prototype.handleClick_, this);
   */
-  ol.events.listen(selectList, ol.events.EventType.CLICK, //DER HIER
-      ol.control.MoonSwitcher.prototype.handleClick_, this);
 
   var cssClasses = className + ' ' + ol.css.CLASS_UNSELECTABLE + ' ' +
       ol.css.CLASS_CONTROL;
