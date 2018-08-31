@@ -5,21 +5,24 @@ ol.control.MoonSwitcher = function(opt_options) {
   var options = opt_options ? opt_options : {};
 
 //VON HIER
-
+  //what happends when clicking on it
   var selectList = document.createElement("select");
   selectList.id = "mySelect";
   selectList.onchange = function(e){
       console.log(e);
       alert(this.value);
-      this.toggleMoon; // ??
-  }
+      //this.toggleMoon; //also in line 88, not sure if needed here
+      //this.changeLabel_();
+  };
+  
+  //what appears on drop down menu
   var array = ["Mimas","Enceladus"];
   for (var i = 0; i < array.length; i++) {
     var option = document.createElement("option");
     option.value = array[i];
     option.text = array[i];
     selectList.appendChild(option);
-	}
+	};
 
 //BIS HIER
   var className = options.className !== undefined ? options.className : 'ol-moonswitcher';
@@ -56,9 +59,9 @@ ol.control.MoonSwitcher = function(opt_options) {
   element.className = cssClasses;
   //element.appendChild(button);
 
-  element.appendChild(selectList);//DER HIER
+  element.appendChild(selectList);//DER HIER //drop down menu becomes part of the element div
 
-  ol.control.Control.call(this, {
+  ol.control.Control.call(this, { //apparently undefined
     element: element,
     target: options.target
   });
@@ -80,11 +83,12 @@ ol.control.MoonSwitcher.prototype.handleClick_ = function(event) {
 };
 */
 //FÜR DROP-DOWN MENU
+//what should happend when drop drop down menu is clicked
 
-ol.control.MoonSwitcher.prototype.handleSelection_ = function(event) {
+ol.control.MoonSwitcher.prototype.handleSelection_ = function(event) { // not in fiddle, but should be in according to previous code
   event.preventDefault();
   this.toggleMoon();
-  this.changeLabel_();
+  //this.changeLabel_(); //button label should not change anymore, because the name is already on the drop down list
 };
 
 
@@ -118,11 +122,11 @@ ol.control.MoonSwitcher.prototype.toggleMoon = function() {
   console.dir(app.map.getLayers());
   if (app.isMimas==true) {
     console.dir("switch to M2");
-    //document.getElementById("mySelect").value = "mimas"; //mimas and enceladus need to be defined
+    document.getElementById("mySelect").value = "Mimas"; //mimas and enceladus need to be defined
     app.isMimas=false;
   } else {
     console.dir("switch to M");
-    //document.getElementById("mySelect").value = "enceladus";
+    document.getElementById("mySelect").value = "Enceladus";
     app.isMimas=true;
   }
   app.moonlayers = app.isMimas == true ?  app.m: app.m2;
