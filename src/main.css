@@ -67,13 +67,13 @@ background-color: black;
 .ol-control option[value="Mimas"]{
     color:white;/*works*/
     outline:none;/*no effect*/
-    font-size: 20px; /*works (for testing)*/
+    font-size: 13px; /*works (for testing)*/
 }
 
 .ol-control option[value="Enceladus"]{
     color:white;/*works*/
     outline:none;/*no effect*/
-    font-size: 20px; /*works (for testing)*/
+    font-size: 13px; /*works (for testing)*/
 }
 
 /*still orange when hovering over items, because it is the ubuntu dropdown color*/
