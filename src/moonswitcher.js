@@ -1,6 +1,8 @@
 goog.provide('ol.control.MoonSwitcher');
+////goog.provide('ol.control.MoonSwitcher');//OL5
 
 ol.control.MoonSwitcher = function(opt_options) {
+//export function MoonSwitcher (opt_options) { //OL5
 
   var options = opt_options ? opt_options : {};
 
@@ -47,6 +49,7 @@ ol.control.MoonSwitcher = function(opt_options) {
     element: element,
     target: options.target
   });
+  //return new WHAT({}); //OL5 --> ?
   };
 
 ol.inherits(ol.control.MoonSwitcher, ol.control.Control);

@@ -1,5 +1,7 @@
 goog.provide('app');
+////goog.provide('app'); // OL5
 goog.require('ol.control.MoonSwitcher');
+//import MoonSwitcher from 'WHAT'; // OL5
 
 //goog.require('ol.Map');
 //goog.require('ol.View');
