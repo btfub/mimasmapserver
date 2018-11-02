@@ -1,5 +1,5 @@
 goog.provide('app');
-////goog.provide('app'); // OL5
+////goog.provide('app'); // OL5 --> remove
 goog.require('ol.control.MoonSwitcher');
 //import MoonSwitcher from 'WHAT'; // OL5
 
